@@ -45,20 +45,20 @@ class Challenge extends Component {
         return false;
     }
 
-    componentDidMount() {
-        this.props.actions.todoAuth.cek()
-        window.addEventListener('scroll', this.handleScroll.bind(this));
-        this.props.actions.todoChallenge.loadChallenge(this.state.countLoad, 20);
-        this.setState({
-            countLoad: this.state.countLoad + 20
-        })
-        this.props.actions.todoCategory.category();
-        this.props.actions.todoStudent.student();
-    }
+    // componentDidMount() {
+    //     this.props.actions.todoAuth.cek()
+    //     window.addEventListener('scroll', this.handleScroll.bind(this));
+    //     this.props.actions.todoChallenge.loadChallenge(this.state.countLoad, 20);
+    //     this.setState({
+    //         countLoad: this.state.countLoad + 20
+    //     })
+    //     this.props.actions.todoCategory.category();
+    //     this.props.actions.todoStudent.student();
+    // }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll.bind(this));
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('scroll', this.handleScroll.bind(this));
+    // }
 
     handleScroll(event) {
         var target = 0

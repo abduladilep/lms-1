@@ -41,6 +41,33 @@ export function registerUser({ email, firstname, lastname, password }) {
         }
     }
 }
+// export function loginUser({ email, password }) {
+//     return async dispatch => {
+//         if (!email || !password) {
+//             dispatch(editPasswordSuccess({ message: 'Please enter all values' }))
+//             setTimeout(function () {
+//                 dispatch(editPasswordSuccess({ message: '' }));
+//             }, 2500);
+//         } else {
+//             try {
+//                 const res = await request
+//                     .post(`${types.SERVER_URL}api/login`)
+//                     .type('form')
+//                     .send({ email: email, password: password });
+
+//                 localStorage.setItem('lms', JSON.stringify({ token: res.body.token, user: res.body.user }));
+//                 console.log(re.body,"auth action loacl lsoft");
+//                 dispatch({ type: types.AUTH_USER });
+//                 window.location.href = `${types.CLIENT_ROOT_URL}dashboard`;
+//             } catch (err) {
+//                 dispatch(editPasswordSuccess({ message: 'Wrong password, try again' }))
+//                 setTimeout(function () {
+//                     dispatch(editPasswordSuccess({ message: '' }));
+//                 }, 2500);
+//             }
+//         }
+//     }
+// }
 
 
 export function loginUser({ email, password }) {
@@ -69,7 +96,7 @@ export function loginUser({ email, password }) {
                     }
                 })
         }
-    }
+    } 
 }
 
 export function logoutUser(error) {
@@ -91,8 +118,10 @@ function stripTrailingSlash(url) {
 
 export function cek() {
     const getUrl = stripTrailingSlash(window.location.href);
-    let token = localStorage.getItem('lms') && JSON.parse(localStorage.getItem('lms')).token ? JSON.parse(localStorage.getItem('lms')).token : null;
+    console.log('Current URL:', getUrl);
 
+    let token = localStorage.getItem('lms') && JSON.parse(localStorage.getItem('lms')).token ? JSON.parse(localStorage.getItem('lms')).token : null;
+ console.log(token,"cek token");
     return dispatch => {
         return request
             .post(`${types.SERVER_URL}api/cek`)
@@ -107,14 +136,22 @@ export function cek() {
                     }
                 } else {
                     if (res.body.status) {
-                        if (getUrl === 'login' || getUrl === 'registration' || getUrl === 'forgot_password') {
+                        console.log(res.body.status,"check status");
+                        // if (getUrl === 'login' || getUrl === 'registration' || getUrl === 'forgot_password') {
+                            if (getUrl.toLowerCase() === 'login' || getUrl.toLowerCase() === 'registration' || getUrl.toLowerCase() === 'forgot_password') {
+                                console.log("doooooooooooo nothing");
+
                             if (res.body.role === 'student' || res.body.role === 'admin' || res.body.role === 'instructor' || res.body.role === 'hiringpartner') {
                                 localStorage.setItem('lms', JSON.stringify(res.body.newToken));
+                                
                                 window.location.href = `${types.CLIENT_ROOT_URL}dashboard`;
                             }
                         } else {
+                            console.log("adilllllllllllllllllllllllllllllllll");
                             if (res.body.role === 'student' || res.body.role === 'admin' || res.body.role === 'instructor' || res.body.role === 'hiringpartner') {
+                                console.log(res.body.role,"authrgggggggggggggggggoll");
                                 localStorage.setItem('lms', JSON.stringify(res.body.newToken));
+                                
                             } else {
                                 localStorage.setItem('lms', JSON.stringify({}));
                                 window.location.href = `${types.CLIENT_ROOT_URL}login`;
@@ -131,6 +168,10 @@ export function cek() {
             })
     }
 }
+
+
+
+
 
 
 export function editPasswordModal(modal) {

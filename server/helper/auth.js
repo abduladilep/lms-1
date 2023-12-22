@@ -16,23 +16,34 @@ function generateToken(user) {
 
 
 exports.login = function (req, res, next) {
+    console.log("inside the login====>");
     const userInfo = setUserInfo(req.user);
+    console.log(userInfo,"userinfoi page auth");
 
     res.status(200).json({
         token: `JWT ${generateToken(userInfo)}`,
         user: userInfo
-    });
+        
+    }); 
 };
 
 exports.Cek = function (req, res, next) {
+    // console.log("Cek", Cek);
+    console.log(req.body, "req.body.");
     var token = req.body.token;
+    console.log(token,"tokennnnnnnnnnnnn");
     var result = {};
+    console.log("scdsnvdsbnvd");
     if (token) {
+        console.log("faaalss");
         var status = false
         if (token) {
             var decoded = jwt.verify(token.split('JWT ', 2)[1], config.secret);
+            console.log(decoded, "status");
             
             if (decoded.exp < Date.now()) {
+                console.log( "status--1");
+
                 status = true
                 if (delete decoded.exp && delete decoded.iat) {
                     result = {
@@ -45,11 +56,14 @@ exports.Cek = function (req, res, next) {
             return res.json({ role: decoded.role, status: status, newToken: result });
         }
     } else {
+        console.log( "status--2");
+
         return res.json({ role: null, status: false, newToken: result });
     }
 }
 
 exports.register = function (req, res, next) {
+    console.log("gdhfgdhgdhfgdhg");
     const id = req.body.id;
     const email = req.body.email;
     const firstname = req.body.firstname;

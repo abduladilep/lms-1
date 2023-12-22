@@ -12,6 +12,8 @@ const requireLogin = passport.authenticate('local', { session: false });
 
 // Login route
 router.post('/login', requireLogin, AuthenticationController.login);
+// router.post('/login', AuthenticationController.login);
+
 
 
 // Registration route
