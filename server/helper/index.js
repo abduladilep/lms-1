@@ -6,13 +6,13 @@ const role_hiringpartner = require('./constants').role_hiringpartner;
 // Set user info from request
 exports.setUserInfo = function setUserInfo(request) {
   const getUserInfo = {
-    // _id: request._id,
-    // id: request.id,
-    // firstname: request.firstname,
-    // lastname: request.lastname,
+    _id: request._id,
+    id: request.id,
+    firstname: request.firstname,
+    lastname: request.lastname,
     email: request.email,
-    // role: request.role,
-    // id_user: request.id_user
+    role: request.role,
+    id_user: request.id_user,
     passwords: request.password
   };
 

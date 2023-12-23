@@ -121,7 +121,7 @@ export function cek() {
     console.log('Current URL:', getUrl);
 
     let token = localStorage.getItem('lms') && JSON.parse(localStorage.getItem('lms')).token ? JSON.parse(localStorage.getItem('lms')).token : null;
- console.log(token,"cek token");
+ console.log(token,"cek tokenn");
     return dispatch => {
         return request
             .post(`${types.SERVER_URL}api/cek`)

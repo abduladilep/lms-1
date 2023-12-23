@@ -37,6 +37,7 @@ exports.Cek = function (req, res, next) {
     if (token) {
         console.log("faaalss");
         var status = false
+        
         if (token) {
             var decoded = jwt.verify(token.split('JWT ', 2)[1], config.secret);
             console.log(decoded, "status");
