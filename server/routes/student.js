@@ -13,12 +13,12 @@ router.get('/', function (req, res, next) {
 });
 
 /* GET Limit skip */
-router.get('/:skip/:limit', function (req, res, next) {
-    Student.find(function (err, student) {
-        if (err) return next(err);
-        res.json(student);
-    }).sort({ id: -1 }).skip(parseInt(req.params.skip)).limit(parseInt(req.params.limit));
-});
+// router.get('/:skip/:limit', function (req, res, next) {
+//     Student.find(function (err, student) {
+//         if (err) return next(err);
+//         res.json(student);
+//     }).sort({ id: -1 }).skip(parseInt(req.params.skip)).limit(parseInt(req.params.limit));
+// });
 
 /* GET SINGLE STUDENT BY ID */
 router.get('/:id', function (req, res, next) {
@@ -29,25 +29,53 @@ router.get('/:id', function (req, res, next) {
 });
 
 /* SAVE STUDENT */
-router.post('/', function (req, res, next) {
-    var image = req.body.file;
-    var datas = req.body;
-    datas['file'] = datas['name'] + datas['nim'];
-    let student = new Student(datas)
-    student.save(function (err, data) {
-        if (err) {
-            return next(err);
-        }
-        if (image)
-            if (image.length > 100) {
-                var file = image.replace(/^data:image\/\w+;base64,/, '');
-                fs.writeFile(path.join(__dirname, '../public/images/upload/' + datas['name'] + datas['nim'] + '.png'), file, { encoding: 'base64' }, function (err) {
-                    console.log('sukses upload')
-                });
-            }
-        res.json(data);
-    });
-});
+// router.post('/', function (req, res, next) {
+//     var image = req.body.file;
+//     var datas = req.body;
+//     console.log(datas,"dataasss");
+//     console.log(image,"dataasss");
+//     datas['file'] = datas['name'] + datas['nim'];
+//     let student = new Student(datas)
+//     student.save(function (err, data) {
+//         if (err) {
+//             return next(err);
+//         }
+//         if (image)
+//             if (image.length > 100) {
+//                 var file = image.replace(/^data:image\/\w+;base64,/, '');
+//                 fs.writeFile(path.join(__dirname, '../public/images/upload/' + datas['name'] + datas['nim'] + '.png'), file, { encoding: 'base64' }, function (err) {
+//                     console.log('sukses upload')
+//                 });
+//             }
+//         res.json(data);
+//     });
+// });
+
+router.post('/', async function (req, res, next) {
+    try {
+      const image = req.body.file;
+      const datas = req.body;
+      datas['file'] = datas['name'] + datas['nim'];
+  
+      const student = new Student(datas);
+      const savedStudent = await student.save();
+  
+      if (image && image.length > 100) {
+        const file = image.replace(/^data:image\/\w+;base64,/, '');
+        await fs.writeFile(
+          path.join(__dirname, '../public/images/upload/', datas['name'] + datas['nim'] + '.png'),
+          file,
+          { encoding: 'base64' }
+        );
+        console.log('Success upload');
+      }
+  
+      res.json(savedStudent);
+    } catch (err) {
+    //   next(err);
+    }
+  });
+  
 
 /* UPDATE STUDENT */
 router.put('/:id', function (req, res, next) {

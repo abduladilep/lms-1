@@ -54,43 +54,25 @@ app.use('/upload', upload);
 // mongoose
 // mongoose.connect('mongodb://localhost:27017/lmsdb');
 const port = 3001;
-const mongoDBConnectionString = 'mongodb://127.0.0.1:27017/LMS?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4';
+const mongoDBConnectionString = 'mongodb://127.0.0.1:27017/LMSDBS?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.5.4';
 
-// mongoose
-//   .connect(process.env.MONGO_DB)
-//   .then(() => {
-//     // app.listen(process.env.PORT, () => {
-//     //   console.log(`server running ${process.env.PORT}`);
-      
-//     // });
-//     app.listen(port, () => {
-//       console.log(`Server is running on port ${port}`);
-//     });
 
-//   })
-//   .catch((err) => {
-//     console.log("there is error");
-//     console.error(err);
-//   });
 
 mongoose
-  .connect(mongoDBConnectionString, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true, // Add this line
-    useFindAndModify: false, 
-  })
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-      
-    });
-  })
-  .catch((err) => {
-    console.log("There is an error connecting to MongoDB:");
-    console.error(err);
-
+.connect(mongoDBConnectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
   });
+})
+.catch((err) => {
+  console.log("There is an error connecting to MongoDB:");
+  console.error(err);
+  process.exit(1);
+});
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

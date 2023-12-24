@@ -15,7 +15,7 @@ exports.setUserInfo = function setUserInfo(request) {
     id_user: request.id_user,
     passwords: request.password
   };
-
+console.log("userrr", getUserInfo);
   return getUserInfo;
 };
 

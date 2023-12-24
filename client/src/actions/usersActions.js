@@ -40,7 +40,8 @@ export function loadUsers(skip, limit) {
   return dispatch => {
     dispatch(loadData());
     return request
-      .get(`${types.SERVER_URL}users/${skip}/${limit}`)
+      // .get(`${types.SERVER_URL}users/${skip}/${limit}`)
+      .get(`${types.SERVER_URL}users`)
       .end((err, res) => {
         if (err) {
           dispatch(loadUsersFailure())
@@ -75,8 +76,10 @@ export function addUsers(email, password, role, firstname, lastname) {
       .end((err, res) => {
         if (err) {
           dispatch(addUsersFailure());
+          console.log("user erroe failed");
         } else {
           dispatch(addUsersSuccess(res.body));
+          console.log("user success");
         }
       })
   }

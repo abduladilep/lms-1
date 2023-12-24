@@ -41,33 +41,7 @@ export function registerUser({ email, firstname, lastname, password }) {
         }
     }
 }
-// export function loginUser({ email, password }) {
-//     return async dispatch => {
-//         if (!email || !password) {
-//             dispatch(editPasswordSuccess({ message: 'Please enter all values' }))
-//             setTimeout(function () {
-//                 dispatch(editPasswordSuccess({ message: '' }));
-//             }, 2500);
-//         } else {
-//             try {
-//                 const res = await request
-//                     .post(`${types.SERVER_URL}api/login`)
-//                     .type('form')
-//                     .send({ email: email, password: password });
 
-//                 localStorage.setItem('lms', JSON.stringify({ token: res.body.token, user: res.body.user }));
-//                 console.log(re.body,"auth action loacl lsoft");
-//                 dispatch({ type: types.AUTH_USER });
-//                 window.location.href = `${types.CLIENT_ROOT_URL}dashboard`;
-//             } catch (err) {
-//                 dispatch(editPasswordSuccess({ message: 'Wrong password, try again' }))
-//                 setTimeout(function () {
-//                     dispatch(editPasswordSuccess({ message: '' }));
-//                 }, 2500);
-//             }
-//         }
-//     }
-// }
 
 
 export function loginUser({ email, password }) {
@@ -85,11 +59,13 @@ export function loginUser({ email, password }) {
                 .send({ password: password })
                 .end((err, res) => {
                     if (err) {
+                        console.log("errorrr");
                         dispatch(editPasswordSuccess({ message: 'wrong password, try again' }))
                         setTimeout(function () {
                             dispatch(editPasswordSuccess({ message: '' }));
                         }, 2500);
                     } else {
+                        console.log("elsee");
                         localStorage.setItem('lms', JSON.stringify({ token: res.body.token, user: res.body.user }));
                         dispatch({ type: types.AUTH_USER });
                         window.location.href = `${types.CLIENT_ROOT_URL}dashboard`;

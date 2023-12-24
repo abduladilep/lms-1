@@ -4,6 +4,7 @@ var Category = require('../models/category');
 
 /* GET ALL STUDENT */
 router.get('/', function (req, res, next) {
+    console.log(Category,"cattetetgrehg")
     Category.find(function (err, category) {
         if (err) return next(err);
         res.json(category);
@@ -20,6 +21,7 @@ router.get('/:skip/:limit', function (req, res, next) {
 
 /* GET SINGLE STUDENT BY ID */
 router.get('/:id', function (req, res, next) {
+
     Category.findOne({ id: req.params.id }, function (err, post) {
         if (err) return next(err);
         res.json(post);
@@ -29,10 +31,12 @@ router.get('/:id', function (req, res, next) {
 /* SAVE STUDENT */
 router.post('/', function (req, res, next) {
     let category = new Category(req.body)
-    category.save(function (err, data) {
-        if (err) return next(err);
-        res.json(data);
-    });
+    console.log(category,"category")
+    category.save()
+    // category.save(function (err, data) {
+    //     if (err) return next(err);
+    //     res.json(data);
+    // });
 });
 
 /* UPDATE STUDENT */

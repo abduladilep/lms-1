@@ -40,7 +40,7 @@ export function loadInstructor(skip, limit) {
   return dispatch => {
     dispatch(loadData());
     return request
-      .get(`${types.SERVER_URL}instructor/${skip}/${limit}`)
+      .get(`${types.SERVER_URL}instructor`)
       .end((err, res) => {
         if (err) {
           dispatch(loadInstructorFailure())
@@ -75,6 +75,7 @@ export function addInstructor(name, gender, contact) {
           dispatch(addInstructorFailure());
         } else {
           dispatch(addInstructorSuccess(res.body));
+          console.log("instroctorr errore");
         }
       })
   }

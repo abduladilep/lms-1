@@ -28,11 +28,14 @@ router.get('/:id', function (req, res, next) {
 
 /* SAVE users */
 router.post('/', function (req, res, next) {
+  
   let user = new Users(req.body)
-  user.save(function (err, data) {
-    if (err) return next(err);
-    res.json(data);
-  });
+  console.log(user,"users");
+  user.save()
+  // user.save(function (err, data) {
+  //   if (err) return next(err);
+  //   res.json(data);
+  // });
 });
 
 /* UPDATE users */

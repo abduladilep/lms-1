@@ -111,8 +111,11 @@ export function addStudent(name, nim, file) {
       .end((err, res) => {
         if (err) {
           dispatch(addStudentFailure());
+          console.log("studenttt errrorrr");
         } else {
           dispatch(addStudentSuccess(res.body));
+          console.log("studenttt");
+
         }
       })
   }
@@ -123,6 +126,7 @@ export function addStudentFailure() {
 }
 
 export function addStudentSuccess(student) {
+  console.log("addStudent");
   return { type: types.ADD_STUDENT_SUCCESS, student }
 }
 

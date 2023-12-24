@@ -36,8 +36,9 @@ class Student extends Component {
 
     isRole(roleToCheck) {
         const userRole = localStorage.getItem('lms') && JSON.parse(localStorage.getItem('lms')).user ? JSON.parse(localStorage.getItem('lms')).user.role : null;
-
+  console.log("Role to check in students: " , userRole);
         if (userRole === roleToCheck) {
+            console.log("in iffff student");
             return true;
         }
 

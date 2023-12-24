@@ -33,18 +33,18 @@ app.post('/send', function (req, res) {
 app.get('/get/:image', function (req, res) {
     var pathFile = path.join(__dirname, `../public/images/upload/${req.params.image}.png`);
     if (fs.existsSync(pathFile)) {
-        res.sendfile(pathFile);
+        res.sendFile(pathFile);
     } else {
-        res.sendfile(path.join(__dirname, `../public/images/not.png`));
+        res.sendFile(path.join(__dirname, `../public/images/not.png`));
     }
 });
 
 app.get('/get/challenge/:image', function (req, res) {
     var pathFile = path.join(__dirname, `../public/images/challenge/${req.params.image}.png`);
     if (fs.existsSync(pathFile)) {
-        res.sendfile(pathFile);
+        res.sendFile(pathFile);
     } else {
-        res.sendfile(path.join(__dirname, `../public/images/not.png`));
+        res.sendFile(path.join(__dirname, `../public/images/not.png`));
     }
 });
 
