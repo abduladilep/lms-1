@@ -4,17 +4,21 @@
   "private": true,
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "bootstrap": "^5.3.2",
+    "create-react-class": "^15.7.0",
     "jquery": "^3.2.1",
-    "react": "^15.6.1",
-    "react-bootstrap": "^0.31.0",
-    "react-bootstrap-date-picker": "^5.0.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^0.31.5",
+    "react-bootstrap-date-picker": "^5.1.0",
     "react-c3js": "^0.1.19",
     "react-crop": "^4.0.2",
     "react-cropper": "^0.12.0",
-    "react-dom": "^15.6.1",
+    "react-dom": "^18.2.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.1.5",
+    "reactstrap": "^9.2.1",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "superagent": "^3.5.2"
@@ -25,5 +29,4 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
- 
 }

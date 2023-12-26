@@ -12,33 +12,79 @@ const localOptions = {
 };
 
 // Setting up local login strategy
-const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
-  if (email === 'rubi.henjaya@gmail.com' && password === 'adminnyacodago') {
-    const user = {
-      _id: '111111111111111111111111',
-      id: '2222222222222',
-      email: 'rubi.henjaya@gmail.com',
-      password: '$2a$05$2L8hsT4ZpMm.zW4C3EEmgOKzy7Me0gagqQtMvfb871igXy5h6FBjS',
-      role: 'admin',
-      firstname: 'Rubi',
-      lastname: 'Henjaya',
-      __v: 0,
-      id_user: '0000000000000'
-    }
-    return done(null, user);
-  } else {
-    User.findOne({ email }, (err, user) => {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false, { error: 'Your login details could not be verified. Please try again.' }); }
+// const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
+//   if (email === 'rubi.henjaya@gmail.com' && password === 'adminnyacodago') {
+//     const user = {
+//       _id: '111111111111111111111111',
+//       id: '2222222222222',
+//       email: 'rubi.henjaya@gmail.com',
+//       password: '$2a$05$2L8hsT4ZpMm.zW4C3EEmgOKzy7Me0gagqQtMvfb871igXy5h6FBjS',
+//       role: 'admin',
+//       firstname: 'Rubi',
+//       lastname: 'Henjaya',
+//       __v: 0,
+//       id_user: '0000000000000'
+//     }
+//     return done(null, user);
+//   } else {
+//     User.findOne({ email }, (err, user) => {
+//       if (err) { return done(err); }
+//       if (!user) { return done(null, false, { error: 'Your login details could not be verified. Please try again.' }); }
 
-      user.comparePassword(password, (err, isMatch) => {
-        if (err) { return done(err); }
-        if (!isMatch) { return done(null, false, { error: 'Your login details could not be verified. Please try again.' }); }
+//       user.comparePassword(password, (err, isMatch) => {
+//         if (err) { return done(err); }
+//         if (!isMatch) { return done(null, false, { error: 'Your login details could not be verified. Please try again.' }); }
+
+//         return done(null, user);
+//       });
+//     });
+//   }
+// });
+
+
+const localLogin = new LocalStrategy(localOptions, async (email, password, done) => {
+  try {
+    if (email === 'rubi.henjaya@gmail.com' && password === 'adminnyacodago') {
+      const user = {
+        _id: '111111111111111111111111',
+        id: '2222222222222',
+        email: 'rubi.henjaya@gmail.com',
+        password: '$2a$05$2L8hsT4ZpMm.zW4C3EEmgOKzy7Me0gagqQtMvfb871igXy5h6FBjS',
+        role: 'admin',
+        firstname: 'Rubi',
+        lastname: 'Henjaya',
+        __v: 0,
+        id_user: '0000000000000'
+      };
+      return done(null, user);
+    } else {
+      console.log("inside passport local logon else");
+      const user = await User.findOne({ email });
+console.log("user found",user);
+      if (!user) {
+        return done(null, false, { error: 'Your login details could not be verified. Please try again.' });
+      }
+
+      user.comparePassword(password.trim(), (err, isMatch) => {
+        console.log(password, user.password,"paaaaaaasssssssss---------");
+
+
+        if (err) {
+          console.error('Error comparing passwords:', err);
+          return done(err);
+        }
+
+        if (!isMatch) {console.log("nottttttttttt matchhhhh");
+          return done(null, false, { error: 'Your login details could not be verified. Please try again.' });
+        }
 
         return done(null, user);
       });
-    });
-  }
+    }
+  } catch (err) {
+    console.error('Error during local login:', err);
+    return done(err);
+}
 });
 
 // Setting JWT strategy options

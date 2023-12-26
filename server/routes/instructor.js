@@ -3,22 +3,26 @@ var router = express.Router();
 var Instructor = require("../models/instructor");
 
 /* GET ALL STUDENT */
-router.get("/", function (req, res, next) {
-  Instructor.find(function (err, instructor) {
-    if (err) return next(err);
-    res.json(instructor);
-  }).sort({ id: -1 });
-});
 // router.get("/", function (req, res, next) {
-//     console.log("innnnnnn");
-//     Instructor.find().sort({ id: -1 }).exec()
-//       .then(instructor => {
-//         res.json(instructor);
-//       })
-//       .catch(err => {
-//         return next(err);
-//       });
-//   });
+//   console.log("getinsa");
+//   Instructor.find(function (err, instructor) {
+//     if (err) return next(err);
+//     res.json(instructor);
+//   }).sort({ id: -1 });
+// });
+
+
+//this is working code
+router.get("/", function (req, res, next) {
+    console.log("innnnnnn");
+    Instructor.find().sort({ id: -1 }).exec()
+      .then(instructor => {
+        res.json(instructor);
+      })
+      .catch(err => {
+        return next(err);
+      });
+  });
    
 // GET Limit skip */
 router.get("/:skip/:limit", function (req, res, next) {
@@ -34,19 +38,12 @@ router.get("/:skip/:limit", function (req, res, next) {
 });
 
 
-router.get("/", async function (req, res, next) {
-    console.log("skipppppppp");
-    try {
-      console.log("Before find");
-      const instructors = await Instructor.find().sort({ id: -1 }).exec();
-      console.log("After find");
-      res.json(instructors);
-    } catch (err) {
-      console.error(err);
-      return next(err);
-    }
-  });
+
   
+
+
+
+
 
 /* GET SINGLE STUDENT BY ID */
 router.get("/:id", function (req, res, next) {

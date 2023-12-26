@@ -22,6 +22,7 @@ export function loadData() {
 }
 
 export function sendStudentImage(filess) {
+  console.log("upload image student");
   return dispatch => {
     return request
       .post(`${types.SERVER_URL}upload/send`)
@@ -37,6 +38,7 @@ export function sendStudentImage(filess) {
 }
 
 export function student() {
+  console.log("ts sudent");
   return dispatch => {
     dispatch(loadData());
     return request
@@ -52,10 +54,12 @@ export function student() {
 }
 
 export function loadStudent(skip, limit) {
+  console.log("load sudent");
+
   return dispatch => {
     dispatch(loadData());
     return request
-      .get(`${types.SERVER_URL}student/${skip}/${limit}`)
+      .get(`${types.SERVER_URL}student`)
       .end((err, res) => {
         if (err) {
           dispatch(loadStudentFailure())
@@ -66,6 +70,11 @@ export function loadStudent(skip, limit) {
   }
 }
 
+
+
+
+
+
 export function loadStudentSuccess(student) {
   return { type: types.LOAD_STUDENT_SUCCESS, student }
 }
@@ -75,6 +84,8 @@ export function loadStudentFailure() {
 }
 
 export function loadStudentID(id) {
+  console.log("lead IDDDD sudent");
+
   return dispatch => {
     dispatch(loadData());
     return request

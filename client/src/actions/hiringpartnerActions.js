@@ -37,10 +37,11 @@ export function hiringpartner() {
 }
 
 export function loadHiringpartner(skip, limit) {
+  console.log("load hiringpartner");
   return dispatch => {
     dispatch(loadData());
     return request
-      .get(`${types.SERVER_URL}hiringpartner/${skip}/${limit}`)
+      .get(`${types.SERVER_URL}hiringpartner`)
       .end((err, res) => {
         if (err) {
           dispatch(loadHiringpartnerFailure())
@@ -60,6 +61,7 @@ export function loadHiringpartnerFailure() {
 }
 
 export function addHiringpartner(name, name_company, address, contact) {
+  console.log("add hiringpartner", name, name_company, address, contact);
   let id = Date.now()
   return dispatch => {
     dispatch(addData(`${id}`, name, name_company, address, contact))

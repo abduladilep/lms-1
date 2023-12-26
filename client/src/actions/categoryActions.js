@@ -37,10 +37,13 @@ export function category() {
 }
 
 export function loadCategory(skip, limit) {
+  console.log("loading category");
   return dispatch => {
     dispatch(loadData());
     return request
-      .get(`${types.SERVER_URL}category/${skip}/${limit}`)
+      // .get(`${types.SERVER_URL}category/${skip}/${limit}`)
+      .get(`${types.SERVER_URL}category`)
+
       .end((err, res) => {
         if (err) {
           dispatch(loadCategoryFailure())

@@ -3,12 +3,27 @@ var router = express.Router();
 var Hiringpartner = require('../models/hiringpartner');
 
 /* GET ALL STUDENT */
-router.get('/', function (req, res, next) {
-    Hiringpartner.find(function (err, hiringpartner) {
-        if (err) return next(err);
+// router.get('/', function (req, res, next) {
+//     Hiringpartner.find(function (err, hiringpartner) {
+//         if (err) return next(err);
+//         res.json(hiringpartner);
+//     }).sort({id: -1});
+// });
+
+
+//this is working code
+router.get("/", function (req, res, next) {
+    console.log("innnnnnn");
+    Hiringpartner.find().sort({ id: -1 }).exec()
+      .then(hiringpartner => {
         res.json(hiringpartner);
-    }).sort({id: -1});
-});
+      })
+      .catch(err => {
+        return next(err);
+      });
+  });
+   
+
 
 /* GET Limit skip */
 router.get('/:skip/:limit', function (req, res, next) {
@@ -29,10 +44,12 @@ router.get('/:id', function (req, res, next) {
 /* SAVE STUDENT */
 router.post('/', function (req, res, next) {
     let hiringpartner = new Hiringpartner(req.body)
-    hiringpartner.save(function (err, data) {
-        if (err) return next(err);
-        res.json(data);
-    });
+    // hiringpartner.save(function (err, data) {
+    //     if (err) return next(err);
+    //     res.json(data);
+    // });
+    hiringpartner.save()
+
 });
 
 /* UPDATE STUDENT */

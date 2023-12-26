@@ -5,23 +5,58 @@ var router = express.Router();
 var Student = require('../models/student');
 
 /* GET ALL STUDENT */
-router.get('/', function (req, res, next) {
-    Student.find(function (err, student) {
-        if (err) return next(err);
-        res.json(student);
-    }).sort({ id: -1 });
-});
-
-/* GET Limit skip */
-// router.get('/:skip/:limit', function (req, res, next) {
+// router.get('/', function (req, res, next) {
+//     console.log("111111111111111111111");
 //     Student.find(function (err, student) {
 //         if (err) return next(err);
 //         res.json(student);
-//     }).sort({ id: -1 }).skip(parseInt(req.params.skip)).limit(parseInt(req.params.limit));
+//     }).sort({ id: -1 });
 // });
+
+// working code
+router.get("/", function (req, res, next) {
+    console.log("student");
+    Student.find().sort({ id: -1 }).exec()
+      .then(student => {
+        res.json(student);
+      })
+      .catch(err => {
+        return next(err);
+      });
+  });
+
+
+/* GET Limit skip */
+router.get('/:skip/:limit', function (req, res, next) {
+    Student.find(function (err, student) {
+        if (err) return next(err);
+        res.json(student);
+    }).sort({ id: -1 }).skip(parseInt(req.params.skip)).limit(parseInt(req.params.limit));
+});
+
+// router.get("/:skip/:limit", function (req, res, next) {
+//     console.log("22222222222");
+//     Student.find(function (err, student) {
+//     console.log("eroor in instr");
+//     if (err) return next(err);
+//     res.json(student);
+//   })
+//     .sort({ id: -1 })
+//     .skip(parseInt(req.params.skip))
+//     .limit(parseInt(req.params.limit));
+// });
+
+
+
+
+
+
+
 
 /* GET SINGLE STUDENT BY ID */
 router.get('/:id', function (req, res, next) {
+    console.log("333333333333");
+
     Student.findOne({ id: req.params.id }, function (err, post) {
         if (err) return next(err);
         res.json(post);

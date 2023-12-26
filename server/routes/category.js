@@ -3,21 +3,38 @@ var router = express.Router();
 var Category = require('../models/category');
 
 /* GET ALL STUDENT */
-router.get('/', function (req, res, next) {
-    console.log(Category,"cattetetgrehg")
-    Category.find(function (err, category) {
-        if (err) return next(err);
-        res.json(category);
-    }).sort({id: -1});
+// router.get('/', function (req, res, next) {
+//     console.log(Category,"cattetetgrehg")
+//     Category.find(function (err, category) {
+//         if (err) return next(err);
+//         res.json(category);
+//     }).sort({id: -1});
+// });
+
+//working code here
+router.get("/", function (req, res, next) {
+console.log("caterocry");
+Category.find().sort({ id: -1 }).exec()
+  .then(category => {
+    res.json(category);
+  })
+  .catch(err => {
+    return next(err);
+  });
 });
 
 /* GET Limit skip */
 router.get('/:skip/:limit', function (req, res, next) {
+    console.log('catergory11');
     Category.find(function (err, category) {
         if (err) return next(err);
         res.json(category);
     }).sort({id: -1}).skip(parseInt(req.params.skip)).limit(parseInt(req.params.limit));
 });
+
+
+
+
 
 /* GET SINGLE STUDENT BY ID */
 router.get('/:id', function (req, res, next) {

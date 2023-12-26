@@ -17,6 +17,7 @@ import Login from './pages/login';
 import ForgotPassword from './pages/forgotPassword'
 import Registration from './pages/registration';
 import NotFound from './pages/notFound';
+import Home from './pages/home';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
@@ -91,6 +92,7 @@ export default class App extends Component {
             {(this.isRole('instructor') || this.isRole('admin')) &&
               <Route exact path='/category' component={Category} />
             }
+        <Route exact path='/home' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/forgot_password' component={ForgotPassword} />
             <Route exact path='/registration' component={Registration} />

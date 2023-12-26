@@ -36,7 +36,10 @@ export function instructor() {
   }
 }
 
+//working code
+
 export function loadInstructor(skip, limit) {
+  console.log("loadingInstructor");
   return dispatch => {
     dispatch(loadData());
     return request
@@ -44,12 +47,40 @@ export function loadInstructor(skip, limit) {
       .end((err, res) => {
         if (err) {
           dispatch(loadInstructorFailure())
+          console.log("loadInstructorer");
         } else {
+          console.log("loeadsucess");
           dispatch(loadInstructorSuccess(res.body))
         }
       })
   }
 }
+
+
+
+
+// export function loadInstructor(skip, limit) {
+//   console.log("loadingInstructor");
+//   return dispatch => {
+//     dispatch(loadData());
+//     return request
+//       .get(`${types.SERVER_URL}instructor/${skip}/${limit}`)
+//       .end((err, res) => {
+//         if (err) {
+//           dispatch(loadInstructorFailure())
+//           console.log("loadInstructorer");
+//         } else {
+//           console.log("loeadsucess");
+//           dispatch(loadInstructorSuccess(res.body))
+//         }
+//       })
+//   }
+// }
+
+
+
+
+
 
 export function loadInstructorSuccess(instructor) {
   return { type: types.LOAD_INSTRUCTOR_SUCCESS, instructor }

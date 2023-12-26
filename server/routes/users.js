@@ -3,20 +3,43 @@ var router = express.Router();
 var Users = require('../models/user');
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  Users.find(function (err, user) {
-    if (err) return next(err);
-    res.json(user);
-  }).sort('id');
+// router.get('/', function (req, res, next) {
+//   Users.find(function (err, user) {
+//     if (err) return next(err);
+//     res.json(user);
+//   }).sort('id');
+// });
+
+
+router.get("/", function (req, res, next) {
+  console.log("user");
+  Users.find().sort({ id: -1 }).exec()
+    .then(user => {
+      res.json(user);
+    })
+    .catch(err => {
+      return next(err);
+    });
 });
+
+
+
 
 /* GET Limit skip */
 router.get('/:skip/:limit', function (req, res, next) {
+  console.log("user skip limit");
+
   Users.find(function (err, user) {
     if (err) return next(err);
     res.json(user);
   }).sort('id').skip(parseInt(req.params.skip)).limit(parseInt(req.params.limit));
 });
+
+
+
+
+
+
 
 /* GET users BY ID */
 router.get('/:id', function (req, res, next) {
@@ -25,6 +48,20 @@ router.get('/:id', function (req, res, next) {
     res.json(post);
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* SAVE users */
 router.post('/', function (req, res, next) {

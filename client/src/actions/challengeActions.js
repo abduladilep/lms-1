@@ -37,10 +37,11 @@ export function challenge() {
 }
 
 export function loadChallenge(skip, limit) {
+  console.log("load challenge");
   return dispatch => {
     dispatch(loadData());
     return request
-      .get(`${types.SERVER_URL}challenge/${skip}/${limit}`)
+      .get(`${types.SERVER_URL}challenge`)
       .end((err, res) => {
         if (err) {
           dispatch(loadChallengeFailure())
@@ -60,6 +61,7 @@ export function loadChallengeFailure() {
 }
 
 export function addChallenge(title, content, category, file, student_access) {
+  console.log("add the challenge");
   let id = Date.now()
   return dispatch => {
     dispatch(addData(`${id}`, title, content, category, file, student_access))

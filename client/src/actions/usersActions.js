@@ -37,6 +37,7 @@ export function users() {
 }
 
 export function loadUsers(skip, limit) {
+  console.log("loaed user");
   return dispatch => {
     dispatch(loadData());
     return request
@@ -45,8 +46,10 @@ export function loadUsers(skip, limit) {
       .end((err, res) => {
         if (err) {
           dispatch(loadUsersFailure())
+          console.log("loaduser error");
         } else {
           dispatch(loadUsersSuccess(res.body))
+          console.log("load user succes");
         }
       })
   }
